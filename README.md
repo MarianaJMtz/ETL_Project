@@ -6,7 +6,7 @@ Although this platform exists, there are still many job positions which are neve
 
 This project aims to create a database containing information about every job posted by any State Department Office in Mexico to "Servicio Profesional de Carrera" between 2013 and 2018 along with data about the performance of the different offices in terms of applied sanctions and employee satisfaction. The data in this set includes:
 
-* The posted role, and the sector (i.e. Energy, Health, Public Service, etc) to which the State Department Office belongs.
+* The posted role, and the sector (i.e. Energy, Health, Public Service etc) to which the State Department Office belongs.
 * The number of Sanctions a sector received per trimester due to personnel misbehavior.
 * The Empolyee Satisfaction Index given to each sector based on surveys.
 
