@@ -1,9 +1,11 @@
-
 # coding: utf-8
 
 #Import dependencies
 import pandas as pd
 import numpy as np
+from sqlalchemy import create_engine
+import pymysql 
+pymysql.install_as_MySQLdb()
 
 #Import CSV file and read with Pandas
 Concursos_df = pd.read_csv("Concursos.csv", encoding="ISO-8859-1")
@@ -84,3 +86,11 @@ table_5 = table_5.rename(columns={'RAMO': 'id_ramo', 'RAMO DESCRIPCION':'ramo_de
 #Save table with the name used in MySQL
 ramo_description = table_5
 
+password = input("Enter MySQL password: ")
+engine = create_engine(f"mysql://root:{password}@localhost/icecream_db")
+
+job_applications.to_sql(job_applications, engine)    
+salaries.to_sql(salaries, engine)    
+mean_satisfaction.to_sql(mean_satisfaction, engine)    
+auditorias_sanciones.to_sql(auditorias_sanciones, engine)    
+ramo_description.to_sql(ramo_description, engine)    
