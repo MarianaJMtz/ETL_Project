@@ -87,7 +87,7 @@ table_5 = table_5.rename(columns={'RAMO': 'id_ramo', 'RAMO DESCRIPCION':'ramo_de
 ramo_description = table_5
 
 password = input("Enter MySQL password: ")
-engine = create_engine(f"mysql://root:{password}@localhost/icecream_db")
+engine = create_engine(f"mysql://root:{password}@localhost/public_jobs_db")
 
 job_applications.to_sql(job_applications, engine)    
 salaries.to_sql(salaries, engine)    
