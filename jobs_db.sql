@@ -7,8 +7,8 @@ DROP TABLE IF EXISTS job_applications;
 CREATE TABLE job_applications(
     ejercicio INT,
     id_ramo INT,
-    nivel_salarial VARCHAR,
-    estatus VARCHAR,
+    nivel_salarial VARCHAR(50),
+    estatus VARCHAR(50),
     solicitudes_total INT,
     porcentaje_aceptacion FLOAT
 );
@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS salaries;
 CREATE TABLE salaries(
     ejercicio INT,
     id_ramo INT,
-    nivel_salarial VARCHAR,
+    nivel_salarial VARCHAR(50),
     remuneracion_bruta FLOAT
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE mean_satisfaction(
 
 /*auditorias_sanciones in AUDITORIAS-SANCIONES_TABLA.ipynb*/
 DROP TABLE IF EXISTS auditorias_sanciones;
-CREATE TABLE autitorias_sanciones(
+CREATE TABLE auditorias_sanciones(
     id_ramo INT,
     ejercicio INT,
     auditorias INT,
@@ -44,7 +44,7 @@ CREATE TABLE autitorias_sanciones(
 DROP TABLE IF EXISTS ramo_description;
 CREATE TABLE ramo_description(
     id_ramo INT,
-    ramo_descripcion VARCHAR
+    ramo_descripcion VARCHAR(50)
 );
 
 
