@@ -26,6 +26,7 @@ table_1 = table_1.drop(['SOLICITUDES_ACEPTADAS'], axis = 1)
 table_1 = table_1.rename(columns={'SOLICITUDES_TOTAL': 'solicitudes_total', '%_ACEPTACION':'porcentaje_aceptacion'})
 
 table_1.index.names = ['ejercicio', 'id_ramo', 'nivel_salarial', 'estatus']
+table_1 = table_1.reset_index()
 
 #Save table with the name used in MySQL
 job_applications = table_1
@@ -42,6 +43,7 @@ table_2 = pd.pivot_table(table_2,index=["Ejercicio","ID_RAMO", 'NIVEL_SALARIAL']
 #Rename columns and indexes
 table_2 = table_2.rename(columns={'REMUNERACION_BRUTA': 'remuneracion_bruta'})
 table_2.index.names = ['ejercicio', 'id_ramo', 'nivel_salarial']
+table_2 = table_2.reset_index()
 
 #Save table with the name used in MySQL
 salaries = table_2
@@ -56,8 +58,9 @@ table_3 = table_3.rename(columns={'AUDITORÍAS_REALIZADAS':'AUDITORIAS', 'OBSERV
 table_3['AUD/SUM'] = table_3['AUDITORIAS'] / table_3['SANCIONES']
 
 #Rename columns and indexes
-table_3 = table_3.rename(columns={'AUDITORIAS': 'auditorias', 'SANCIONES':'sanciones', 'AUD/SUM': 'aud/sum'})
+table_3 = table_3.rename(columns={'AUDITORIAS': 'auditorias', 'SANCIONES':'sanciones', 'AUD/SUM': 'aud_san_ratio'})
 table_3.index.names = ['id_ramo', 'ejercicio']
+table_3 = table_3.reset_index()
 
 #Save table with the name used in MySQL
 auditorias_sanciones = table_3
@@ -66,12 +69,13 @@ auditorias_sanciones = table_3
 ecco_df = pd.read_csv('ECCO.csv', encoding='iso-8859-1')
 
 #Manipulate data to create table_4
-ecco_df_extract = ecco_df[['RAMO', 'AÑO', 'INDICE DE SATISFACCIÓN LABORAL']].copy()
-table_4 = ecco_df_extract.groupby(['RAMO', 'AÑO']).mean()
-table_4 = ecco_df_extract.rename(columns={'INDICE DE SATISFACCIÓN LABORAL':'PROMEDIO ECCO'})
+ecco_df_extract = ecco_df[['RAMO', 'ANIO', 'INDICE DE SATISFACCION LABORAL']].copy()
+table_4 = ecco_df_extract.groupby(['RAMO', 'ANIO']).mean()
+table_4 = table_4.reset_index()
+table_4 = ecco_df_extract.rename(columns={'INDICE DE SATISFACCION LABORAL':'PROMEDIO ECCO'})
 
 #Rename columns 
-table_4 = table_4.rename(columns={'RAMO': 'id_ramo', 'AÑO':'anio', 'PROMEDIO ECCO' : 'promedio_ecco'})
+table_4 = table_4.rename(columns={'RAMO': 'id_ramo', 'ANIO':'anio', 'PROMEDIO ECCO' : 'promedio_ecco'})
 
 #Save table with the name used in MySQL
 mean_satisfaction = table_4
@@ -82,15 +86,16 @@ table_5 = table_5.drop_duplicates()
 
 #Rename columns
 table_5 = table_5.rename(columns={'RAMO': 'id_ramo', 'RAMO DESCRIPCION':'ramo_descripcion'})
+table_5 = table_5.reset_index()
 
 #Save table with the name used in MySQL
 ramo_description = table_5
 
 password = input("Enter MySQL password: ")
-engine = create_engine(f"mysql://root:{password}@localhost/public_jobs_db")
+engine = create_engine("mysql://root:" + password + "@localhost/public_jobs_db")
 
-job_applications.to_sql(job_applications, engine)    
-salaries.to_sql(salaries, engine)    
-mean_satisfaction.to_sql(mean_satisfaction, engine)    
-auditorias_sanciones.to_sql(auditorias_sanciones, engine)    
-ramo_description.to_sql(ramo_description, engine)    
+job_applications.to_sql('job_applications', engine, index=False, if_exists = "append")    
+salaries.to_sql('salaries', engine, index=False, if_exists = "append")    
+mean_satisfaction.to_sql('mean_satisfaction', engine, index=False, if_exists = "append")    
+auditorias_sanciones.to_sql('auditorias_sanciones', engine, index=False, if_exists = "append")    
+ramo_description.to_sql('ramo_description', engine, index=False, if_exists = "append")    
