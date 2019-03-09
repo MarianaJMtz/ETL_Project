@@ -66,12 +66,12 @@ auditorias_sanciones = table_3
 ecco_df = pd.read_csv('ECCO.csv', encoding='iso-8859-1')
 
 #Manipulate data to create table_4
-ecco_df_extract = ecco_df[['RAMO', 'AÑO', 'INDICE DE SATISFACCIÓN LABORAL']].copy()
-table_4 = ecco_df_extract.groupby(['RAMO', 'AÑO']).mean()
-table_4 = ecco_df_extract.rename(columns={'INDICE DE SATISFACCIÓN LABORAL':'PROMEDIO ECCO'})
+ecco_df_extract = ecco_df[['RAMO', 'ANIO', 'INDICE DE SATISFACCION LABORAL']].copy()
+table_4 = ecco_df_extract.groupby(['RAMO', 'ANIO']).mean()
+table_4 = ecco_df_extract.rename(columns={'INDICE DE SATISFACCION LABORAL':'PROMEDIO ECCO'})
 
 #Rename columns 
-table_4 = table_4.rename(columns={'RAMO': 'id_ramo', 'AÑO':'anio', 'PROMEDIO ECCO' : 'promedio_ecco'})
+table_4 = table_4.rename(columns={'RAMO': 'id_ramo', 'ANIO':'anio', 'PROMEDIO ECCO' : 'promedio_ecco'})
 
 #Save table with the name used in MySQL
 mean_satisfaction = table_4
