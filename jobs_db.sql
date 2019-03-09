@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS job_applications;
 CREATE TABLE job_applications(
     ejercicio INT,
     id_ramo INT,
-    nivel_salarial VARCHAR(50),
+    nivel_salarial VARCHAR(100),
     estatus VARCHAR(50),
     solicitudes_total INT,
     porcentaje_aceptacion FLOAT
@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS salaries;
 CREATE TABLE salaries(
     ejercicio INT,
     id_ramo INT,
-    nivel_salarial VARCHAR(50),
+    nivel_salarial VARCHAR(100),
     remuneracion_bruta FLOAT
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE salaries(
 DROP TABLE IF EXISTS mean_satisfaction;
 CREATE TABLE mean_satisfaction(
     id_ramo INT,
-    anyo INT,
+    anio INT,
     promedio_ecco FLOAT
 );
 
